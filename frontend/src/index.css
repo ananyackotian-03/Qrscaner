@@ -1,0 +1,57 @@
+@import "tailwindcss";
+
+@theme {
+  --color-cyber-black: #050505;
+  --color-cyber-dark: #121212;
+  --color-cyber-gray: #1a1a1a;
+  --color-cyber-blue: #00f0ff;
+  --color-cyber-purple: #7000ff;
+  --color-cyber-red: #ff003c;
+  --color-cyber-green: #00ff41;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-cyber-black);
+    color: white;
+    font-family: var(--font-mono);
+    @apply antialiased;
+    background-image: 
+      radial-gradient(circle at 50% 50%, rgba(112, 0, 255, 0.05) 0%, transparent 50%),
+      linear-gradient(rgba(18, 18, 18, 0.8) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(18, 18, 18, 0.8) 1px, transparent 1px);
+    background-size: 100% 100%, 20px 20px, 20px 20px;
+  }
+}
+
+.cyber-card {
+  @apply bg-cyber-dark border border-white/10 rounded-lg p-6 backdrop-blur-md;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.cyber-button {
+  @apply px-6 py-2 rounded border border-cyber-blue text-cyber-blue hover:bg-cyber-blue/10 transition-all duration-300 font-bold uppercase tracking-widest;
+}
+
+.cyber-input {
+  @apply bg-cyber-gray border border-white/10 rounded px-4 py-2 focus:border-cyber-blue outline-none transition-all;
+}
+
+.glow-blue { box-shadow: 0 0 15px rgba(0, 240, 255, 0.3); }
+.glow-purple { box-shadow: 0 0 15px rgba(112, 0, 255, 0.3); }
+.glow-red { box-shadow: 0 0 15px rgba(255, 0, 60, 0.3); }
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  @apply bg-cyber-black;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-cyber-purple/50 rounded-full;
+}
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-cyber-purple;
+}

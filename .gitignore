@@ -1,0 +1,21 @@
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.env
+frontend/.env.local
+
+# Backend
+backend/__pycache__/
+backend/venv/
+backend/.env
+backend/static/screenshots/*.png
+backend/static/screenshots/scan_*.png
+
+# System
+.DS_Store
+test_qrs/
+*.pyc
+
+# IDE
+.vscode/
+.idea/

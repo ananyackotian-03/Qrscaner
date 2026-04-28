@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+playwright
+opencv-python
+sqlalchemy
+pydantic
+python-multipart
+requests
+numpy
