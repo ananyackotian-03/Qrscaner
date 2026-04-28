@@ -1,89 +1,109 @@
-# Product Requirements Document (PRD): QR Zero-Interaction Threat Intelligence System (QR-ZITIS)
+# Master Engineering Specification: QR Zero-Interaction Threat Intelligence System (QR-ZITIS)
 
-**Version:** 1.1.0  
-**Status:** Implementation Complete / Production Ready  
-**Role:** Senior Software Engineer Perspective
-
----
-
-## 1. Executive Summary
-The **QR-ZITIS** platform is an advanced cybersecurity solution designed to mitigate the risks associated with "Quishing" (QR Phishing). Unlike traditional scanners that require user interaction with potentially malicious destinations, our system implements a **Zero-Interaction Analysis Pipeline**. By utilizing structural URL DNA profiling and isolated behavioral sandboxing, the system provides comprehensive threat intelligence before a user ever engages with the target.
+**Version:** 1.2.0  
+**Status:** Implementation Complete  
+**Confidentiality:** Engineering Internal  
 
 ---
 
-## 2. Problem Statement
-The ubiquity of QR codes has created a significant security blind spot. Traditional QR scanners are "dumb" decoders that pass the extracted URL directly to the user's browser, leading to:
-1.  **Direct Exposure**: Immediate interaction with phishing or malware-hosting sites.
-2.  **Lack of Context**: Users have no visibility into the destination's reputation or redirect history.
-3.  **Beaconing Risk**: Scanning a code can signal an active user to an attacker even if the site is not fully loaded.
+## 1. Executive Architecture Overview
+The **QR-ZITIS** platform is built on a "Defense-in-Depth" architecture. It decouples initial data extraction from behavioral analysis to maximize security and minimize performance overhead.
+
+### 1.1 High-Level Architecture Flow
+```mermaid
+graph TD
+    A[QR Image Upload] --> B[OpenCV Extraction Engine]
+    B --> C{Decision Engine}
+    C -->|Stage 1: Instant| D[Zero-Interaction DNA Analysis]
+    D --> E{Risk > Threshold?}
+    E -->|Yes| F[Stage 2: Playwright Sandbox]
+    E -->|No| G[Final Synthesis]
+    F --> H[Behavioral Monitoring]
+    H --> G
+    G --> I[React Cyber-Dashboard]
+```
 
 ---
 
-## 3. High-Level Goals
-- **P0: Zero-Interaction Intelligence**: Generate 90% of threat data without active server engagement.
-- **P0: Behavioral Verification**: Use isolated environments to follow redirect chains.
-- **P1: Visual Forensics**: Provide an "Attack Graph" to visualize the threat journey.
-- **P1: Product-Grade UX**: Deliver a high-end, responsive dashboard that translates technical metrics into human-readable stories.
+## 2. Comprehensive Tooling & Dependency Matrix
+
+| Component | Tool / Library | Purpose |
+| :--- | :--- | :--- |
+| **Backend Framework** | FastAPI (Python) | High-concurrency async REST API. |
+| **Computer Vision** | OpenCV (cv2) | Self-contained QR matrix decoding. |
+| **Sandbox Engine** | Playwright | Isolated browser execution & behavior tracking. |
+| **Frontend Framework** | React (Vite) | Modern, optimized SPA framework. |
+| **Styling Engine** | Tailwind CSS v4 | CSS-first utility styling for cyber-theme. |
+| **Animations** | Framer Motion | Smooth UI transitions and micro-interactions. |
+| **Data Viz** | Chart.js | Dynamic risk gauges and telemetry charts. |
+| **Persistence** | SQLite / SQLAlchemy | Historical scan storage and threat profiling. |
 
 ---
 
-## 4. Technical Architecture & Component Breakdown
+## 3. Team Resource Allocation (4-Member Team)
 
-### 4.1 Frontend (React / Vite / Tailwind v4)
-- **Architecture**: Single Page Application (SPA) with state-driven navigation.
-- **Visual Stack**: Framer Motion for micro-animations, Chart.js for telemetry visualization.
-- **Security**: Strict input validation and sanitization of backend reports.
+To ensure maximum efficiency, the project is divided into specialized domains:
 
-### 4.2 Backend (FastAPI / Playwright / OpenCV)
-- **FastAPI**: Asynchronous REST API layer for high-throughput analysis.
-- **OpenCV Engine**: Self-contained QR decoding (removing external DLL dependencies).
-- **Playwright Sandbox**: Headless Chromium instances for safe destination traversal.
+### **Member 1: Backend & Security Lead**
+- **Responsibilities**: 
+    - Architecture of the FastAPI REST layer.
+    - Implementation of the **Zero-Interaction DNA Engine** (Entropy/Keyword analysis).
+    - API Security and CORS management.
+- **Key KPIs**: API Latency < 100ms, Entropy accuracy > 95%.
 
----
+### **Member 2: Sandbox & Automation Engineer**
+- **Responsibilities**: 
+    - Configuration and hardening of the **Playwright Sandbox**.
+    - Implementation of behavioral monitors (Redirect chains, script detection).
+    - Screenshot orchestration and static asset management.
+- **Key KPIs**: Sandbox isolation integrity, Redirect hop tracking accuracy.
 
-## 5. Functional Requirements
+### **Member 3: Frontend & UX Architect**
+- **Responsibilities**: 
+    - Design and implementation of the **Cyber-Dashboard**.
+    - Integration of **Framer Motion** and **Chart.js** visualizations.
+    - Responsive design and state-driven navigation flow.
+- **Key KPIs**: First Meaningful Paint < 1s, User Engagement metrics.
 
-### 5.1 Zero-Interaction Pre-Analysis (DNA Module)
-The system must analyze the URL metadata without initiating a network request:
-- **Entropy Calculation**: Implementation of Shannon Entropy to detect machine-generated/obfuscated paths.
-- **TLD Risk Scoring**: Automated weighting based on historical TLD maliciousness (e.g., .xyz, .top).
-- **Lexical Pattern Matching**: Heuristic scanning for credential-harvesting keywords.
-
-### 5.2 Dynamic Decision Engine
-A stateful logic layer that orchestrates the analysis depth:
-- **Low Risk (<30)**: Pre-analysis only. Instant response.
-- **Medium/High Risk (>30)**: Automatic escalation to the Sandbox Module.
-
-### 5.3 Behavioral Sandbox (Playwright)
-Isolated execution environment to observe:
-- **Redirect Latency & Hops**: Tracking every `302/301` redirect.
-- **DOM Mutation**: Monitoring script injections and form creation.
-- **Visual Capture**: Generating a non-interactive snapshot of the final payload.
-
----
-
-## 6. Non-Functional Requirements
-
-### 6.1 Performance & Latency
-- **Pre-Analysis**: Must complete in < 200ms.
-- **Sandbox**: Targeted completion in < 15s (dependent on target site load time).
-
-### 6.2 Security & Isolation
-- **Sandbox Hardening**: Headless instances must use custom User-Agents to avoid bot detection while maintaining complete isolation from the host OS.
-- **Data Privacy**: No user-identifiable data is passed to the target destination during sandbox execution.
+### **Member 4: Integration & Data Specialist**
+- **Responsibilities**: 
+    - Database schema design (SQLAlchemy) and scan history management.
+    - Final report synthesis and the "Behavioral Storytelling" engine.
+    - End-to-end QA, unit testing, and Git workflow management.
+- **Key KPIs**: Database query performance, System-wide test coverage.
 
 ---
 
-## 7. The Competitive Advantage (Novelty)
-Our "moat" lies in the **Zero-Interaction Philosophy**. By treating the URL as a forensic object rather than just a pointer, we provide intelligence that traditional scanners cannot. The **Attack Graph** and **Behavioral Storytelling** turn complex forensics into a user-centric security product.
+## 4. Detailed Implementation Roadmap
+
+### **Phase 1: Foundation (Sprint 1)**
+- Initialize FastAPI and React environments.
+- Establish the OpenCV-based QR extraction pipeline.
+- Define shared Pydantic models for cross-service communication.
+
+### **Phase 2: The Intelligence Core (Sprint 2)**
+- Build the **Pre-Analysis DNA Engine** (Entropy, TLD risk).
+- Setup the **Playwright Sandbox** with initial behavioral listeners.
+- Implement the SQLite database layer for persistence.
+
+### **Phase 3: Visualization & UX (Sprint 3)**
+- Develop the 3-page React flow (Scan -> Predict -> Dashboard).
+- Integrate Tailwind v4 theme and custom cybersecurity UI components.
+- Implement real-time risk gauge telemetry.
+
+### **Phase 4: Synthesis & Hardening (Sprint 4)**
+- Connect the Pre-analysis scores to the Sandbox Decision Engine.
+- Finalize the "Explanation Story" logic and Attack Graph visualization.
+- Conduct final security audits and documentation finalization.
 
 ---
 
-## 8. Future Roadmap
-- **ML Integration**: Training a model on the DNA metrics to improve prediction accuracy.
-- **API Extensibility**: Allowing third-party SOC (Security Operations Center) integration.
-- **Cloud Sandboxing**: Moving Playwright execution to a distributed lambda-style architecture for massive scale.
+## 5. Risk Assessment & Mitigation
+- **Risk**: Sandbox overhead slowing down UI.
+- **Mitigation**: Implement async background tasks; return Pre-analysis results instantly while sandbox runs.
+- **Risk**: Missing DLLs for QR decoding on Windows.
+- **Mitigation**: Switched to `cv2.QRCodeDetector` to eliminate external system dependencies.
 
 ---
-**Approved By:**  
-*Senior Software Engineer - Antigravity AI*
+**Document Generated By:**  
+*Senior Software Engineering Lead - QR-ZITIS Team*
