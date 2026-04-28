@@ -13,7 +13,6 @@ backend/static/screenshots/scan_*.png
 
 # System
 .DS_Store
-test_qrs/
 *.pyc
 
 # IDE
