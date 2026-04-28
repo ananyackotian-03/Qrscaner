@@ -39,6 +39,6 @@ def create_docx(input_md, output_docx):
     print(f"Word document successfully generated at: {output_docx}")
 
 if __name__ == "__main__":
-    input_file = "SENIOR_ENGINEER_PRD.md"
-    output_file = "QR_ZITIS_Master_Engineering_PRD.docx"
+    input_file = "ENGINEERING_WHITE_PAPER.md"
+    output_file = "QR_ZITIS_Master_Engineering_Specification.docx"
     create_docx(input_file, output_file)
